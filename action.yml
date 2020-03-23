@@ -1,0 +1,27 @@
+name: 'Setup Elasticsearch with Plugins'
+description: 'Github action to setup elasticsearch with plugins '
+author: 'everpcpc'
+
+branding:
+    icon: 'database'
+    color: 'orange'
+
+inputs:
+    version:
+      description: 'The version of the Elasticsearch you want to run'
+      required: true
+    nodes:
+      description: 'Number of nodes in the cluster'
+      required: false
+      default: 1
+    plugins:
+        description: 'Plugins to install before start'
+        required: false
+
+runs:
+    using: 'docker'
+    image: 'Dockerfile'
+    env:
+      STACK_VERSION: ${{ inputs.version }}
+      NODES: ${{ inputs.nodes }}
+      PLUGINS: ${{ inputs.plugins }}
