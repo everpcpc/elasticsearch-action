@@ -11,7 +11,7 @@ docker network create elastic
 
 mkdir -p /usr/share/elasticsearch/plugins/
 
-if [[ -z $PLUGINS ]]; then
+if [[ ! -z $PLUGINS ]]; then
   docker run --rm \
     -v /usr/share/elasticsearch/plugins/:/usr/share/elasticsearch/plugins/ \
     --entrypoint=/usr/share/elasticsearch/bin/elasticsearch-plugin \
