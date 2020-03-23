@@ -40,7 +40,7 @@ do
     --detach \
     --network=elastic \
     --name="es${node}" \
-    -v /usr/share/elasticsearch/plugins/:/usr/share/elasticsearch/plugins/ \
+    -v /usr/share/elasticsearch/plugins/:/usr/share/elasticsearch/plugins/:ro \
     docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
 done
 
