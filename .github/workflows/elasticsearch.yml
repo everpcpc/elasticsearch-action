@@ -20,7 +20,7 @@ jobs:
       - name: Start Elasticsearch
         uses: ./
         with:
-          stack-version: 7.6.1
+          version: 7.6.1
 
       - name: Elasticsearch is reachable
         run: |
@@ -43,7 +43,7 @@ jobs:
       - name: Start Elasticsearch
         uses: ./elasticsearch
         with:
-          stack-version: 7.6.1
+          version: 7.6.1
           nodes: 3
 
       - name: Elasticsearch Node es1 is reachable
