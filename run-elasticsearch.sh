@@ -18,18 +18,37 @@ docker run --rm \
   docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION} \
   -c -C /usr/share/elasticsearch/ config | tar x -C /usr/share/elasticsearch/
 
-chown -R 1000:1000 /usr/share/elasticsearch/plugins/
 
 if [[ ! -z $PLUGINS ]]; then
   docker run --rm \
     --network=elastic \
-    --use=1000 \
     -v /usr/share/elasticsearch/plugins/:/usr/share/elasticsearch/plugins/ \
     -v /usr/share/elasticsearch/config/:/usr/share/elasticsearch/config/ \
     --entrypoint=/usr/share/elasticsearch/bin/elasticsearch-plugin \
     docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION} \
     install ${PLUGINS/\\n/ } --batch
 fi
+
+docker run \
+  --rm \
+  --env "node.name=es1" \
+  --env "cluster.name=docker-elasticsearch" \
+  --env "cluster.initial_master_nodes=es1" \
+  --env "discovery.seed_hosts=es1" \
+  --env "cluster.routing.allocation.disk.threshold_enabled=false" \
+  --env "bootstrap.memory_lock=true" \
+  --env "ES_JAVA_OPTS=-Xms1g -Xmx1g" \
+  --env "xpack.security.enabled=false" \
+  --env "xpack.license.self_generated.type=basic" \
+  --ulimit nofile=65536:65536 \
+  --ulimit memlock=-1:-1 \
+  --publish "9200:9200" \
+  --detach \
+  --network=elastic \
+  --name="es1" \
+  -v /usr/share/elasticsearch/plugins/:/usr/share/elasticsearch/plugins/ \
+  -v /usr/share/elasticsearch/config/:/usr/share/elasticsearch/config/ \
+  docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
 
 docker run \
   --network elastic \
