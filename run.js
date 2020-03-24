@@ -21,7 +21,15 @@ try {
         --entrypoint=cp \
         -v ${volumes}:/v/ \
         docker.elastic.co/elasticsearch/elasticsearch:${version} \
-        -r '/usr/share/elasticsearch/{config,plugins}' /v/
+        -r /usr/share/elasticsearch/config /v/
+    `);
+    shell.exec(`docker run --rm \
+        --network=elastic \
+        --user=1000 \
+        --entrypoint=cp \
+        -v ${volumes}:/v/ \
+        docker.elastic.co/elasticsearch/elasticsearch:${version} \
+        -r /usr/share/elasticsearch/plugins /v/
     `);
 
     if (plugins) {
