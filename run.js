@@ -33,7 +33,6 @@ try {
         `);
     }
     shell.exec(`docker run --rm \
-        --detach \
         --env "node.name=es1" \
         --env "cluster.name=docker-elasticsearch" \
         --env "cluster.initial_master_nodes=es1" \
