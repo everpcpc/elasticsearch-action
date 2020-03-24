@@ -20,7 +20,7 @@ try {
         --entrypoint=cp \
         -v ${config_dir}:/config/ \
         docker.elastic.co/elasticsearch/elasticsearch:${version} \
-        -r /usr/share/elasticsearch/config/* /config/
+        -r /usr/share/elasticsearch/config/ /config/
     `);
 
     if (plugins) {
