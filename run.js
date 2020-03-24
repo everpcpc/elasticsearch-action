@@ -13,12 +13,11 @@ try {
 
     shell.set('-e');
     shell.exec('docker network create elastic');
-    shell.mkdir('-p', config_dir);
     shell.mkdir('-p', plugin_dir);
     shell.exec(`docker run --rm \
         --network=elastic \
         --entrypoint=cp \
-        -v ${config_dir}:/v/ \
+        -v ${volumes}:/v/ \
         docker.elastic.co/elasticsearch/elasticsearch:${version} \
         -r /usr/share/elasticsearch/config /v/
     `);
