@@ -4,16 +4,12 @@ author: 'everpcpc'
 
 branding:
     icon: 'database'
-    color: 'orange'
+    color: 'green'
 
 inputs:
     version:
       description: 'The version of the Elasticsearch you want to run'
       required: true
-    nodes:
-      description: 'Number of nodes in the cluster'
-      required: false
-      default: 1
     plugins:
         description: 'Plugins to install before start'
         required: false
