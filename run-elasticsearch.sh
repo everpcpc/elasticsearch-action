@@ -51,6 +51,7 @@ do
     --network=elastic \
     --name="es${node}" \
     -v /usr/share/elasticsearch/plugins/:/usr/share/elasticsearch/plugins/:ro \
+    -v /usr/share/elasticsearch/config/:/usr/share/elasticsearch/config/:ro \
     docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
 done
 
