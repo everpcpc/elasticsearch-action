@@ -18,9 +18,9 @@ try {
     shell.exec(`docker run --rm \
         --network=elastic \
         --entrypoint=cp \
-        -v ${config_dir}:/config/ \
+        -v ${config_dir}:/v/ \
         docker.elastic.co/elasticsearch/elasticsearch:${version} \
-        -r /usr/share/elasticsearch/config/ /config/
+        -r /usr/share/elasticsearch/config /v/
     `);
 
     if (plugins) {
