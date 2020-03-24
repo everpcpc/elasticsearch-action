@@ -43,7 +43,6 @@ docker run \
   --ulimit nofile=65536:65536 \
   --ulimit memlock=-1:-1 \
   --publish "9200:9200" \
-  --detach \
   --network=elastic \
   --name="es1" \
   -v /usr/share/elasticsearch/plugins/:/usr/share/elasticsearch/plugins/ \
