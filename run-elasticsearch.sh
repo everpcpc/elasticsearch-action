@@ -13,6 +13,7 @@ mkdir -p /usr/share/elasticsearch/plugins/
 mkdir -p /usr/share/elasticsearch/config/
 
 docker run --rm \
+  --network=elastic \
   --entrypoint=tar \
   docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION} \
   -c -C /usr/share/elasticsearch/ config | tar x -C /usr/share/elasticsearch/
@@ -20,6 +21,7 @@ docker run --rm \
 
 if [[ ! -z $PLUGINS ]]; then
   docker run --rm \
+    --network=elastic \
     -v /usr/share/elasticsearch/plugins/:/usr/share/elasticsearch/plugins/ \
     -v /usr/share/elasticsearch/config/:/usr/share/elasticsearch/config/ \
     --entrypoint=/usr/share/elasticsearch/bin/elasticsearch-plugin \
