@@ -13,6 +13,8 @@ try {
 
     shell.set('-e');
     shell.exec('docker network create elastic');
+    shell.mkdir(volumes);
+    shell.chmod('0777', volumes);
     shell.exec(`docker run --rm \
         --network=elastic \
         --user=1000 \
