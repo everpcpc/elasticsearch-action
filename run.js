@@ -21,7 +21,7 @@ try {
         --entrypoint=cp \
         -v ${volumes}:/v/ \
         docker.elastic.co/elasticsearch/elasticsearch:${version} \
-        -r /usr/share/elasticsearch/{config,plugins} /v/
+        -r '/usr/share/elasticsearch/{config,plugins}' /v/
     `);
 
     if (plugins) {
