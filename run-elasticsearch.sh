@@ -30,6 +30,10 @@ if [[ ! -z $PLUGINS ]]; then
     install ${PLUGINS/\\n/ } --batch
 fi
 
+ls -lha /es
+ls -lha /es/plugins
+ls -lha /es/config
+
 docker run \
   --rm \
   --env "node.name=es1" \
