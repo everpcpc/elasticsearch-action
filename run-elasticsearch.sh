@@ -9,21 +9,22 @@ fi
 
 docker network create elastic
 
-mkdir -p /usr/share/elasticsearch/plugins/
-mkdir -p /usr/share/elasticsearch/config/
+mkdir -p /es/plugins/
+mkdir -p /es/config/
 
 docker run --rm \
   --network=elastic \
   --entrypoint=tar \
   docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION} \
-  -c -C /usr/share/elasticsearch/ config | tar x -C /usr/share/elasticsearch/
+  -c -C /usr/share/elasticsearch/ config | tar x -C /es/
 
+chown -R 1000:1000 /es/
 
 if [[ ! -z $PLUGINS ]]; then
   docker run --rm \
     --network=elastic \
-    -v /usr/share/elasticsearch/plugins/:/usr/share/elasticsearch/plugins/ \
-    -v /usr/share/elasticsearch/config/:/usr/share/elasticsearch/config/ \
+    -v /es/plugins/:/usr/share/elasticsearch/plugins/ \
+    -v /es/config/:/usr/share/elasticsearch/config/ \
     --entrypoint=/usr/share/elasticsearch/bin/elasticsearch-plugin \
     docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION} \
     install ${PLUGINS/\\n/ } --batch
@@ -45,8 +46,8 @@ docker run \
   --publish "9200:9200" \
   --network=elastic \
   --name="es1" \
-  -v /usr/share/elasticsearch/plugins/:/usr/share/elasticsearch/plugins/ \
-  -v /usr/share/elasticsearch/config/:/usr/share/elasticsearch/config/ \
+  -v /es/plugins/:/usr/share/elasticsearch/plugins/ \
+  -v /es/config/:/usr/share/elasticsearch/config/ \
   docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
 
 docker run \
