@@ -16,7 +16,7 @@ if [[ ! -z $PLUGINS ]]; then
     -v /usr/share/elasticsearch/plugins/:/usr/share/elasticsearch/plugins/ \
     --entrypoint=/usr/share/elasticsearch/bin/elasticsearch-plugin \
     docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION} \
-    install $PLUGINS --batch
+    install ${PLUGINS/\\n/ } --batch
 fi
 
 NODES=${NODES-1}
