@@ -17,10 +17,11 @@ try {
     shell.mkdir('-p', plugin_dir);
     shell.exec(`docker run --rm \
         --network=elastic \
-        --entrypoint=tar \
+        --entrypoint=cp \
+        -v ${config_dir}:/config/ \
         docker.elastic.co/elasticsearch/elasticsearch:${version} \
-        -c -C /usr/share/elasticsearch/ config
-    `).exec(`tar x -C ${volumes}`);
+        -r /usr/share/elasticsearch/config/* /config/
+    `);
 
     if (plugins) {
         shell.exec(`docker run --rm \
