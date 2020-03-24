@@ -15,9 +15,5 @@ inputs:
         required: false
 
 runs:
-    using: 'docker'
-    image: 'Dockerfile'
-    env:
-      STACK_VERSION: ${{ inputs.version }}
-      NODES: ${{ inputs.nodes }}
-      PLUGINS: ${{ inputs.plugins }}
+    using: 'node12'
+    main: 'run.js'
