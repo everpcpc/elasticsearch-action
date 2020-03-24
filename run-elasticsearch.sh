@@ -10,10 +10,15 @@ fi
 docker network create elastic
 
 mkdir -p /usr/share/elasticsearch/plugins/
+mkdir -p /usr/share/elasticsearch/config/
+
+docker run yourimage tar -c -C /usr/share/elasticsearch/ config | tar x -C /usr/share/elasticsearch/
+
 
 if [[ ! -z $PLUGINS ]]; then
   docker run --rm \
     -v /usr/share/elasticsearch/plugins/:/usr/share/elasticsearch/plugins/ \
+    -v /usr/share/elasticsearch/config/:/usr/share/elasticsearch/config/ \
     --entrypoint=/usr/share/elasticsearch/bin/elasticsearch-plugin \
     docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION} \
     install ${PLUGINS/\\n/ } --batch
